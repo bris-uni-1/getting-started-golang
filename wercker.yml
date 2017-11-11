@@ -48,6 +48,11 @@ build:
 
 push-fat:
   steps:
+    - script:
+        name: ls-wercker-root
+        code: |
+            echo WERCKER_ROOT=$WERCKER_ROOT; ls -ls $WERCKER_ROOT
+
     - internal/docker-push:
         username: $DOCKERHUB_USERNAME
         password: $DOCKERHUB_PASSWORD
