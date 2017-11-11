@@ -23,10 +23,40 @@ build:
     - script:
         name: go build
         code: |
-          go build ./...
+          go build -o hello-world ./...
 
     # Test the project
     - script:
         name: go test
         code: |
           go test ./...
+
+    - script:
+        name: ls-wercker-root
+        code: |
+            echo WERCKER_ROOT=$WERCKER_ROOT; ls -ls $WERCKER_ROOT
+        
+    - script:
+        name: copy-output
+        code: |
+            mv hello-world $WERCKER_OUTPUT_DIR
+        
+    - script:
+        name: ls-wercker-output-dir
+        code: |
+            echo WERCKER_OUTPUT_DIR=$WERCKER_OUTPUT_DIR; ls -ls $WERCKER_OUTPUT_DIR
+
+push-fat:
+  steps:
+    - script:
+        name: ls-wercker-root
+        code: |
+            echo WERCKER_ROOT=$WERCKER_ROOT; ls -ls $WERCKER_ROOT
+
+    - internal/docker-push:
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
+        cmd: /pipeline/output/hello-world
+        tag: latest
+        repository: odxdemo/hello-world
+        ports: "5000"
