@@ -75,3 +75,24 @@ push-scratch-docker:
             tag: latest
             repository: odxdemo/helloworld
             ports: "5000"
+
+deploy-to-kube:
+  box: golang
+  steps:
+    - script:
+        name: Create certificates
+        code: |
+          echo $CERTIFICATE_AUTHORITY_DATA | base64 --decode > ca.pem
+          echo $CLIENT_CERTIFICATE_DATA    | base64 --decode > client.pem
+          echo $CLIENT_KEY_DATA            | base64 --decode > client-key.pem
+    - kubectl:
+        name: Deploy new image
+        debug: true
+        server: $KUBERNETES_MASTER
+        certificate-authority: ca.pem
+        client-certificate: client.pem
+        client-key: client-key.pem
+        command: set image deployment/hello-world hello-world=odxdemo/hello-world:latest
+    - script:
+        name: Cleanup
+        code: rm -rf ca.pem client.pem client-key.pem
