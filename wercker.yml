@@ -73,5 +73,5 @@ push-scratch-docker:
             password: $DOCKERHUB_PASSWORD
             cmd: ./hello-world
             tag: latest
-            repository: odxdemo/helloworld
+            repository: odxdemo/hello-world-scratch
             ports: "5000"
