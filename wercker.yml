@@ -40,7 +40,6 @@ build:
         name: copy-output
         code: |
             mv hello-world $WERCKER_OUTPUT_DIR
-        
     - script:
         name: ls-wercker-output-dir
         code: |
