@@ -56,7 +56,7 @@ push-fat:
     - internal/docker-push:
         username: $DOCKERHUB_USERNAME
         password: $DOCKERHUB_PASSWORD
-        cmd: /pipeline/output/hello-world
+        cmd: /pipeline/source/hello-world
         tag: latest
         repository: odxdemo/hello-world
         ports: "5000"
