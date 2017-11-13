@@ -23,7 +23,7 @@ build:
     - script:
         name: go build
         code: |
-          go build -o hello-world ./...
+            CGO_ENABLED=0 go build -a -o hello-world ./...
 
     # Test the project
     - script:
