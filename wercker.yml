@@ -15,7 +15,6 @@ dev:
 build:
   # The steps that will be executed on build
   steps:
-
     # golint step!
     - wercker/golint
 
