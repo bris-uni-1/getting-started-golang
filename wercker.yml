@@ -47,19 +47,20 @@ build:
             echo WERCKER_OUTPUT_DIR=$WERCKER_OUTPUT_DIR; ls -ls $WERCKER_OUTPUT_DIR
 
 push-fat:
-  steps:
-    - script:
-        name: ls-wercker-root
-        code: |
-            echo WERCKER_ROOT=$WERCKER_ROOT; ls -ls $WERCKER_ROOT
+    steps:
+        - script:
+            name: ls-wercker-root
+            code: |
+                echo WERCKER_ROOT=$WERCKER_ROOT; ls -ls $WERCKER_ROOT
 
-    - internal/docker-push:
-        username: $DOCKERHUB_USERNAME
-        password: $DOCKERHUB_PASSWORD
-        cmd: /pipeline/source/hello-world
-        tag: latest
-        repository: odxdemo/hello-world
-        ports: "5000"
+        - internal/docker-push:
+            username: $DOCKERHUB_USERNAME
+            password: $DOCKERHUB_PASSWORD
+            cmd: /pipeline/source/hello-world
+            tag: latest
+            repository: odxdemo/hello-world
+            ports: "5000"
+            registry: https://registry.hub.docker.com/v2
 
 push-scratch-docker:
     steps:
@@ -75,3 +76,4 @@ push-scratch-docker:
             tag: latest
             repository: odxdemo/hello-world-scratch
             ports: "5000"
+            registry: https://registry.hub.docker.com/v2
